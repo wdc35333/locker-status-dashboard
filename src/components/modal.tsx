@@ -23,7 +23,7 @@ export default function Modal({ item, setIsOpen }: ModalProps) {
           >
             <div className="mb-3 flex items-center justify-between">
               <h3 className="text-base font-semibold text-zinc-900">
-                Box {item.box_id} 상세 정보
+                보관함 {item.box_id} 상세 정보
               </h3>
               <button
                 type="button"

@@ -65,7 +65,7 @@ export default function Box({ item, scaleX, scaleY }: BoxProps) {
         title={`Box ${item.box_id}`}
         onClick={() => setIsOpen(true)}
       >
-        {shape.txt}
+        {item.box_id}
       </button>
       {isOpen && <Modal item={item} setIsOpen={setIsOpen} />}
     </>
