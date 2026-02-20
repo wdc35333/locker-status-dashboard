@@ -1,3 +1,9 @@
+'use client';
+
+import { useState } from 'react';
+
+import Modal from './modal';
+
 export interface LockerShape {
   txt: string;
   left: number;
@@ -10,6 +16,10 @@ export interface BoxItem {
   box_id: number;
   box_status: number;
   box_broken_status: number;
+  box_starting_date: number;
+  box_expiry_date: number;
+  courier_mobile_num: string | null;
+  onetime_password: string | null;
   shape: LockerShape;
 }
 
@@ -34,6 +44,7 @@ const getStatusColorClassName = (boxStatus: number, brokenStatus: number) => {
 export default function Box({ item, scaleX, scaleY }: BoxProps) {
   const { shape, box_status: boxStatus, box_broken_status: brokenStatus } = item;
   const statusColorClassName = getStatusColorClassName(boxStatus, brokenStatus);
+  const [isOpen, setIsOpen] = useState(false);
 
   const style = {
     left: `${shape.left * scaleX}px`,
@@ -43,15 +54,20 @@ export default function Box({ item, scaleX, scaleY }: BoxProps) {
   };
 
   return (
-    <div
-      className={[
-        'absolute flex items-center justify-center rounded border text-sm font-semibold',
-        statusColorClassName,
-      ].join(' ')}
-      style={style}
-      title={`Box ${item.box_id}`}
-    >
-      {shape.txt}
-    </div>
+    <>
+      <button
+        type="button"
+        className={[
+          'absolute flex items-center justify-center rounded border text-sm font-semibold cursor-pointer',
+          statusColorClassName,
+        ].join(' ')}
+        style={style}
+        title={`Box ${item.box_id}`}
+        onClick={() => setIsOpen(true)}
+      >
+        {shape.txt}
+      </button>
+      {isOpen && <Modal item={item} setIsOpen={setIsOpen} />}
+    </>
   );
 }
