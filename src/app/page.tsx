@@ -9,6 +9,7 @@ import BoxFilter, { BoxFilterType } from '@/components/box-filter';
 const CANVAS_WIDTH = 1024;
 const CANVAS_HEIGHT = 768;
 
+// 상태에 따라 보관함 필터링
 const filterBoxByStatus = (item: BoxItem, filter: BoxFilterType) => {
   if (filter === 'all') {
     return true;
@@ -29,11 +30,14 @@ export default function DashBoard() {
   const { data, error, isLoading } = useBoxStatus<BoxItem[]>();
   const boxList = useMemo(() => data ?? [], [data]);
   const [activeFilter, setActiveFilter] = useState<BoxFilterType>('all');
+
+  // 상태에 따라 보관함 필터링
   const filteredBoxList = useMemo(
     () => boxList.filter((item) => filterBoxByStatus(item, activeFilter)),
     [boxList, activeFilter],
   );
 
+  // 보관함 레이아웃 계산
   const layoutBounds = boxList.reduce(
     (acc, item) => {
       const right = item.shape.left + item.shape.width;
@@ -47,16 +51,18 @@ export default function DashBoard() {
     { maxRight: 1, maxBottom: 1 },
   );
 
+  // 보관함 레이아웃 계산
   const scaleX = CANVAS_WIDTH / layoutBounds.maxRight;
   const scaleY = CANVAS_HEIGHT / layoutBounds.maxBottom;
 
   return (
-    <main className="flex w-[1024px] flex-col gap-2">
-      <BoxFilter activeFilter={activeFilter} onChange={setActiveFilter} />
-      {error && <p>{error}</p>}
-      {!error && isLoading && <p>불러오는 중...</p>}
+    <main className="flex w-[1024px] flex-col gap-2"> {/* 메인 컨테이너 */}
+      <BoxFilter activeFilter={activeFilter} onChange={setActiveFilter} /> {/* 보관함 필터 */}
+      {error && <p>{error}</p>} {/* 에러 메시지 */}
+      {!error && isLoading && <p>불러오는 중...</p>} {/* 로딩 메시지 */}
       {!error && !isLoading && (
-        <section className="relative h-[768px] w-[1024px] overflow-hidden border bg-zinc-50">
+        <section className="relative w-[1024px] h-[768px] overflow-hidden border bg-zinc-50">
+          {/* 보관함 */}
           {filteredBoxList.map((item) => (
             <Box key={item.box_id} item={item} scaleX={scaleX} scaleY={scaleY} />
           ))}

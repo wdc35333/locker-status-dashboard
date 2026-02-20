@@ -1,4 +1,4 @@
-export default function formatUnixTimestamp(timestamp: number) {
+export default function formatUnixTimestamp(timestamp: number) { // 유닉스 타임스탬프 포맷팅
   if (!timestamp) {
     return '-';
   }
@@ -13,7 +13,7 @@ export default function formatUnixTimestamp(timestamp: number) {
   return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
 
-export function formatPhoneNumber(phoneNumber: string | null) {
+export function formatPhoneNumber(phoneNumber: string | null) { // 전화번호 포맷팅
   if (!phoneNumber) {
     return '-';
   }

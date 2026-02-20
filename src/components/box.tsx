@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import Modal from './modal';
 
-export interface LockerShape {
+export interface LockerShape { // 보관함 모양 인터페이스
   txt: string;
   left: number;
   top: number;
@@ -12,7 +12,7 @@ export interface LockerShape {
   height: number;
 }
 
-export interface BoxItem {
+export interface BoxItem { // 보관함 아이템 인터페이스
   box_id: number;
   box_status: number;
   box_broken_status: number;
@@ -23,13 +23,13 @@ export interface BoxItem {
   shape: LockerShape;
 }
 
-export interface BoxProps {
+export interface BoxProps { // 보관함 컴포넌트 인터페이스
   item: BoxItem;
   scaleX: number;
   scaleY: number;
 }
 
-const getStatusColorClassName = (boxStatus: number, brokenStatus: number) => {
+const getStatusColorClassName = (boxStatus: number, brokenStatus: number) => { // 상태에 따라 색상 클래스 반환
   if (brokenStatus === 1) { // 고장
     return 'border-red-500 bg-red-100 text-red-700';
   }
@@ -41,7 +41,7 @@ const getStatusColorClassName = (boxStatus: number, brokenStatus: number) => {
   return 'border-blue-500 bg-blue-100 text-blue-700'; // 고장이 아니고, 사용 중인 경우
 };
 
-export default function Box({ item, scaleX, scaleY }: BoxProps) {
+export default function Box({ item, scaleX, scaleY }: BoxProps) { // 보관함 컴포넌트
   const { shape, box_status: boxStatus, box_broken_status: brokenStatus } = item;
   const statusColorClassName = getStatusColorClassName(boxStatus, brokenStatus);
   const [isOpen, setIsOpen] = useState(false);
@@ -67,7 +67,7 @@ export default function Box({ item, scaleX, scaleY }: BoxProps) {
       >
         {item.box_id}
       </button>
-      {isOpen && <Modal item={item} setIsOpen={setIsOpen} />}
+      {isOpen && <Modal item={item} setIsOpen={setIsOpen} />} {/* 모달 */}
     </>
   );
 }

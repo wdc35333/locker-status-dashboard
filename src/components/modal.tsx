@@ -2,12 +2,12 @@ import { BoxItem } from './box';
 
 import formatUnixTimestamp, { formatPhoneNumber } from '@/client/utils';
 
-interface ModalProps {
+interface ModalProps { // 모달 컴포넌트 인터페이스
   item: BoxItem;
   setIsOpen: (isOpen: boolean) => void;
 }
 
-export default function Modal({ item, setIsOpen }: ModalProps) {
+export default function Modal({ item, setIsOpen }: ModalProps) { // 모달 컴포넌트
   return (
     <div
         className="fixed inset-0 z-50 flex items-center justify-center bg-black/35"
