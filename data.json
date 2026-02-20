@@ -1,0 +1,31 @@
+[
+    {
+      "locker_id": 1, "box_id": 1,
+      "box_status": 6, "box_broken_status": 0,
+      "box_starting_date": 1768907010, "box_expiry_date": 1774091010,
+      "courier_mobile_num": "01012345678", "onetime_password": "112233",
+      "shape": { "type": 1, "txt": "01", "left": 0, "top": 0, "width": 77, "height": 52 }
+    },
+    {
+      "locker_id": 1, "box_id": 2,
+      "box_status": 0, "box_broken_status": 0,
+      "box_starting_date": 0, "box_expiry_date": 0,
+      "courier_mobile_num": null, "onetime_password": null,
+      "shape": { "type": 128, "txt": "PC", "left": 0, "top": 53, "width": 77, "height": 158 }
+    },
+    {
+      "locker_id": 1, "box_id": 3,
+      "box_status": 0, "box_broken_status": 1,
+      "box_starting_date": 0, "box_expiry_date": 0,
+      "courier_mobile_num": null, "onetime_password": null,
+      "shape": { "type": 4, "txt": "02", "left": 0, "top": 212, "width": 77, "height": 211 }
+    },
+    {
+      "locker_id": 1, "box_id": 4,
+      "box_status": 1, "box_broken_status": 0,
+      "box_starting_date": 1768908000, "box_expiry_date": 1768994400,
+      "courier_mobile_num": "01099998888", "onetime_password": null,
+      "shape": { "type": 1, "txt": "03", "left": 78, "top": 0, "width": 77, "height": 105 }
+    }
+  ]
+  
