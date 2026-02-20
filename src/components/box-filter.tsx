@@ -13,24 +13,25 @@ const FILTER_BUTTONS: FilterButton[] = [
 ];
 
 type BoxFilterProps = {
-  activeFilter: BoxFilterType;
-  onChange: (filter: BoxFilterType) => void;
+  activeFilters: BoxFilterType[];
+  onToggle: (filter: BoxFilterType) => void;
 };
 
-export default function BoxFilter({ activeFilter, onChange }: BoxFilterProps) {
+export default function BoxFilter({ activeFilters, onToggle }: BoxFilterProps) {
   return (
     <header className="flex items-center gap-2 border bg-white px-3 py-2">
       {FILTER_BUTTONS.map((button) => (
         <button
           key={button.key}
           type="button"
+          aria-pressed={activeFilters.includes(button.key)}
           className={[
             'rounded-md border px-3 py-1 text-sm font-medium transition-colors',
-            activeFilter === button.key
+            activeFilters.includes(button.key)
               ? 'border-zinc-900 bg-zinc-900 text-white'
               : 'border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-100',
           ].join(' ')}
-          onClick={() => onChange(button.key)}
+          onClick={() => onToggle(button.key)}
         >
           {button.label}
         </button>

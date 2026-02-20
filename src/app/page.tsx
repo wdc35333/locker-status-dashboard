@@ -8,6 +8,8 @@ import BoxFilter, { BoxFilterType } from '@/components/box-filter';
 
 const CANVAS_WIDTH = 1024;
 const CANVAS_HEIGHT = 768;
+type StatusFilterType = Exclude<BoxFilterType, 'all'>;
+const STATUS_FILTERS: StatusFilterType[] = ['empty', 'using', 'broken'];
 
 // 상태에 따라 보관함 필터링
 const filterBoxByStatus = (item: BoxItem, filter: BoxFilterType) => {
@@ -29,12 +31,45 @@ const filterBoxByStatus = (item: BoxItem, filter: BoxFilterType) => {
 export default function DashBoard() {
   const { data, error, isLoading } = useBoxStatus<BoxItem[]>();
   const boxList = useMemo(() => data ?? [], [data]);
-  const [activeFilter, setActiveFilter] = useState<BoxFilterType>('all');
+  const [activeFilters, setActiveFilters] = useState<BoxFilterType[]>(['all']);
+
+  const handleToggleFilter = (filter: BoxFilterType) => {
+    if (filter === 'all') {
+      setActiveFilters(['all']);
+      return;
+    }
+
+    const selectedFilter: StatusFilterType = filter;
+
+    setActiveFilters((prev) => {
+      const withoutAll = prev.filter(
+        (value): value is StatusFilterType => value !== 'all',
+      );
+      const isSelected = withoutAll.includes(selectedFilter);
+      const next = isSelected
+        ? withoutAll.filter((value) => value !== selectedFilter)
+        : [...withoutAll, selectedFilter];
+
+      if (STATUS_FILTERS.every((status) => next.includes(status))) {
+        return ['all'];
+      }
+
+      return next.length > 0 ? next : ['all'];
+    });
+  };
 
   // 상태에 따라 보관함 필터링
   const filteredBoxList = useMemo(
-    () => boxList.filter((item) => filterBoxByStatus(item, activeFilter)),
-    [boxList, activeFilter],
+    () => {
+      if (activeFilters.includes('all')) {
+        return boxList;
+      }
+
+      return boxList.filter((item) => (
+        activeFilters.some((filter) => filterBoxByStatus(item, filter))
+      ));
+    },
+    [boxList, activeFilters],
   );
 
   // 보관함 레이아웃 계산
@@ -57,7 +92,7 @@ export default function DashBoard() {
 
   return (
     <main className="flex w-[1024px] flex-col gap-2"> {/* 메인 컨테이너 */}
-      <BoxFilter activeFilter={activeFilter} onChange={setActiveFilter} /> {/* 보관함 필터 */}
+      <BoxFilter activeFilters={activeFilters} onToggle={handleToggleFilter} /> {/* 보관함 필터 */}
       {error && <p>{error}</p>} {/* 에러 메시지 */}
       {!error && isLoading && <p>불러오는 중...</p>} {/* 로딩 메시지 */}
       {!error && !isLoading && (
