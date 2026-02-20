@@ -1,23 +1,23 @@
-type LockerShape = {
+export interface LockerShape {
   txt: string;
   left: number;
   top: number;
   width: number;
   height: number;
-};
+}
 
-type BoxItem = {
+export interface BoxItem {
   box_id: number;
   box_status: number;
   box_broken_status: number;
   shape: LockerShape;
-};
+}
 
-type BoxProps = {
+export interface BoxProps {
   item: BoxItem;
   scaleX: number;
   scaleY: number;
-};
+}
 
 export default function Box({ item, scaleX, scaleY }: BoxProps) {
   const { shape, box_status: boxStatus, box_broken_status: brokenStatus } = item;

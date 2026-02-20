@@ -2,10 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
-export type JsonValue = Record<string, unknown> | unknown[];
-
-export function useData() {
-  const [data, setData] = useState<JsonValue | null>(null);
+export default function useData<T>() {
+  const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
@@ -18,7 +16,7 @@ export function useData() {
           throw new Error('데이터를 불러오지 못했습니다.');
         }
 
-        const json = (await response.json()) as JsonValue;
+        const json = (await response.json()) as T;
         setData(json);
       } catch (err) {
         let message = '알 수 없는 오류가 발생했습니다.';
