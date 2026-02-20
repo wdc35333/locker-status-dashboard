@@ -12,3 +12,18 @@ export default function formatUnixTimestamp(timestamp: number) {
 
   return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
+
+export function formatPhoneNumber(phoneNumber: string | null) {
+  if (!phoneNumber) {
+    return '-';
+  }
+
+  const digits = phoneNumber.replace(/\D/g, '');
+  const matched = digits.match(/^(\d{3})(\d{4})(\d{4})$/);
+
+  if (!matched) {
+    return phoneNumber;
+  }
+
+  return `${matched[1]}-${matched[2]}-${matched[3]}`;
+}
