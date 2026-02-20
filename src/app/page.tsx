@@ -1,13 +1,13 @@
 'use client';
 
+import useBoxStatus from '@/client/hooks/use-box-status';
 import Box, { BoxItem } from '@/components/box';
-import useData from '@/hooks/useData';
 
 const CANVAS_WIDTH = 1024;
 const CANVAS_HEIGHT = 768;
 
 export default function DashBoard() {
-  const { data, error, isLoading } = useData<BoxItem[]>();
+  const { data, error, isLoading } = useBoxStatus<BoxItem[]>();
   const boxList = data ?? [];
 
   const layoutBounds = boxList.reduce(

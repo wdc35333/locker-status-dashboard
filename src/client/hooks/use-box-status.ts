@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-export default function useData<T>() {
+export default function useBoxStatus<T>() {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
